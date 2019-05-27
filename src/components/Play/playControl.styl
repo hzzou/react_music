@@ -1,0 +1,257 @@
+
+@import "~react-input-range/lib/css/index.css"
+@import "../../fontSize.styl"
+
+@-webkit-keyframes rotatePic{
+  0%{
+    transform rotate(0deg)
+  }
+  100%{
+    transform rotate(360deg)
+  }
+}
+.play-control
+  width 100%
+  height 100%
+  overflow auto
+  .no-data
+    width 100%
+    height 1238px
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    img
+      width 375px
+    p
+      font-size(20px)
+      margin-top 20px
+      color #e9203d
+  .play-bg
+    width 100%
+    height 1238px
+    background-repeat no-repeat
+    background-size 100% 100%
+    filter blur(40px)
+  .component-album
+    width 500px
+    height 500px
+    background rgba(250, 250, 250, 0.7)
+    position absolute
+    top 0; left 0;
+    right 0; bottom 0;
+    margin auto
+    border-radius 50%
+    box-shadow 0 0 20px rgba(0, 0, 0, 0.4)
+    .album-pic
+      width 100%
+      height 100%
+      border-radius 50%
+      animation rotatePic 9.5s infinite linear
+    .playing
+      animation-play-state running
+    .paused
+      animation-play-state paused
+  .component-album:before
+    content ""
+    position absolute
+    left 0; top 0;
+    width 100%
+    height 100%
+    border-radius 50%
+    box-shadow inset 0 0 0 12px rgba(255, 255, 255, 0.6),0 2px 4px rgba(0, 0, 0, 0.3)
+    z-index 100
+  .dot-modal
+    position fixed
+    bottom 0
+    width 100%
+    background rgba(0,0,0,0.9)
+    transition all 0.25s ease 0
+    transform translateY(100%)
+    color #fff
+    h1,.move-btn
+      border-bottom 1px solid #9d9d9d
+      padding 30px
+      color #fff
+      margin 0
+      font-weight normal
+      font-size(16px)
+    .move-btn
+      display flex
+      justify-content flex-start
+      align-items center
+      .icon-btn
+        display flex
+        justify-content center
+        align-items center
+        background #333
+        border-radius 4px
+        margin-right 30px
+        width 72px
+        height 72px
+    .volume
+      padding 30px
+      display flex
+      justify-content flex-start
+      align-items center
+      .volume-icon
+        width 60px
+        height 60px
+        background-position center center
+        background-repeat no-repeat
+        background-size 40px 40px
+      .volume-slider
+        flex 1
+        height 4px
+        background #858585
+        position relative
+        .volume-mask
+          position absolute
+          left 0; top 0;
+          height 4px
+          background #e9203d
+        .volume-bar
+          position absolute
+          top -9px;
+          width 20px
+          height 20px
+          border-radius 50%
+          background #e9203d
+    .cancel
+      padding 30px
+      text-align center
+      border-top 1px solid #9d9d9d
+      font-size(18px)
+      margin 0
+  .translateY-0
+    transform translateY(0%)
+  .play-control-box
+    width 100%
+    height 250px
+    position absolute
+    bottom 50px
+    padding 0 40px
+    box-sizing border-box
+    .play-time-bar
+      width 100%
+      display flex
+      justify-content center
+      align-items center
+      .time_left,.time_right
+        flex 0 0 100px
+        text-align center
+        height 30px
+        color #e9203d
+      .play-range
+        flex 0 0 470px
+        margin 0 10px
+        touch-action pan-y
+        .input-range__label-container
+          display none
+        .input-range
+          height 30px
+          .input-range__slider
+            height 30px
+            width 30px
+            border-radius 50%
+            margin-left -20px
+            margin-top -20px
+            background #e9203d
+            border none
+          .input-range__track
+            height 10px
+          .input-range__track--background
+            margin-top 0
+            background #eee
+          .input-range__track--active
+            background #e9203d
+    .play-control-bar
+      margin-top 40px
+      display flex
+      justify-content space-around
+      align-items center
+      .previous, .playing, .paused, .next, .menu
+        width 110px
+        height 110px
+        border 4px solid #e9203d
+        border-radius 50%
+        position relative
+      .previous:before, .previous:after //使用伪类在previous前增加修饰(作用和类选择器一样)
+        content ""
+        position absolute
+        top 0
+        bottom 0
+        left 50%
+        margin-top auto
+        margin-bottom auto
+        width 0
+        height 0
+        border-top 30px solid transparent
+        border-bottom 30px solid transparent
+        border-right 30px solid #e9203d
+      .previous:before
+        margin-left -6px
+      .previous:after
+        margin-left -36px
+      .playing:after
+        content ""
+        position absolute
+        top 0
+        bottom 0
+        left 50%
+        margin-top auto
+        margin-bottom auto
+        margin-left -16px
+        width 0
+        height 0
+        border-top 30px solid transparent
+        border-bottom 30px solid transparent
+        border-left 45px solid #e9203d
+      .paused:before,.paused:after
+        content ""
+        position absolute
+        top 0
+        bottom 0
+        left 50%
+        margin-top auto
+        margin-bottom auto
+        width 10px
+        height 50px
+        background: #e9203d
+      .paused:before
+        margin-left 7px
+      .paused:after
+        margin-left -15px
+      .next:before,.next:after
+        content ""
+        position absolute
+        top 0
+        bottom 0
+        left 50%
+        margin-top auto
+        margin-bottom auto
+        width 0
+        height 0
+        border-top 30px solid transparent
+        border-bottom 30px solid transparent
+        border-left 30px solid #e9203d
+      .next:before
+        margin-left 4px
+      .next:after
+        margin-left -26px
+      .menu:before, .menu:after
+        content ""
+        position absolute
+        top 0
+        right 0
+        left 0
+        bottom 0
+        margin auto
+        width 60px
+      .menu:before
+        height 10px
+        background #e9203d
+      .menu:after
+        height 50px
+        border-top 10px solid #e9203d
+        border-bottom 10px solid #e9203d

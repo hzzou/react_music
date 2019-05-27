@@ -1,0 +1,175 @@
+
+import React from 'react'
+import { Link } from 'react-router-dom'
+import API from '../../util/api'
+import Header from '../../common/Header/Header'
+import { Icon } from "antd";
+import Loading from "../../common/Loading/Loading";
+import "./albumList.styl";
+
+class AlbumList extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            loaded:false,
+            songList:[],
+            songInfo:{},
+            addRemove:true
+        }
+        this.getData = this.getData.bind(this)
+    }
+
+    componentDidMount(){
+        this.getData()
+    }
+    async getData(){
+        let song_data = await fetch(`${API.song_playlist}/${this.props.match.params.id}&json=true`).then(function(res){
+            return res.json()
+        }).catch(function(error){
+            console.log(error)
+        })
+        console.log(song_data)
+
+        if(song_data.list.list.info.length>0){
+            this.setState({
+                songList:song_data.list.list.info,
+                songInfo:{
+                    img:song_data.info.list.imgurl,
+                    name:song_data.info.list.specialname,
+                    creater:song_data.info.list.nickname,
+                    time:song_data.info.list.publishtime
+                },
+                loaded:true
+            })
+        }
+
+    }
+
+    addFavorite = (e,ele)=>{
+        if(e.currentTarget.style.color === "" || e.currentTarget.style.color === "rgb(102, 102, 102)"){
+            e.currentTarget.style.color = "#f00";
+            this.props.musicActions.addFavoriteMusic(ele.filename);
+        }
+        else{
+            e.currentTarget.style.color = "#666";
+            this.props.musicActions.removeFavoriteMusic(ele.filename);
+        }
+    }
+
+    addOne(e,ele){
+        /*console.log(e)
+        console.log(ele)
+        console.log(e.currentTarget)
+        console.log(e.currentTarget.previousSibling)
+        console.log(this.props)*/
+        e.currentTarget.style.display = "none";
+        e.currentTarget.nextSibling.style.display = "block";
+        this.props.musicActions.addMusicOne(ele)
+    }
+
+    removeOne(e,ele){
+        e.currentTarget.style.display = "none";
+        e.currentTarget.previousSibling.style.display = "block";
+        this.props.musicActions.removeMusicOne(ele)
+    }
+
+    addOrRemoveAll(data){
+        let plusOne = document.getElementsByClassName('plus_one')
+        let minusOne = document.getElementsByClassName('minus_one')
+        console.log(data)
+        console.log(this.props)
+        console.log(this.state.addRemove)
+        if(this.state.addRemove){
+            this.props.musicActions.addMusicAll(data)
+            this.setState({
+                addRemove:false
+            });
+            for(let i = 0; i < plusOne.length; i++){
+                plusOne[i].style.display = "none";
+            }
+
+            for(let i = 0; i < minusOne.length; i++){
+                minusOne[i].style.display = "block";
+            }
+        }
+        else{
+            this.props.musicActions.removeMusicAll()
+            this.setState({
+                addRemove:true
+            });
+            for(let i = 0; i < plusOne.length; i++){
+                plusOne[i].style.display = "block";
+            }
+
+            for(let i = 0; i < minusOne.length; i++){
+                minusOne[i].style.display = "none";
+            }
+        }
+    }
+
+    setStyle(ele){
+        return this.props.favoriteMusic.length > 0 && this.props.favoriteMusic.indexOf(ele.filename) >= 0 ? {color:"rgba(233,32,61)"} : {color:""}
+    }
+
+    back(){
+        this.props.history.goBack()
+    }
+
+    render(){
+        console.log(this)
+        if(this.state.loaded){
+            let songList = this.state.songList.map((ele,i)=>{
+                return(
+                        <li key={i}>{/*"/play/#"+ele.hash*/}
+                            <Link to={"/musiclist"}>
+                                <span>
+                                    <span>{ele.filename}</span>
+                                    <span>{ele.remark}</span>
+                                </span>
+                            </Link>
+                            <span style={{"marginLeft":"20px","display":"flex","justifyContent":"flex-start"}}>
+                                <Icon onClick={(e)=>this.addFavorite(e,ele)} type="heart" theme="filled" style={this.setStyle(ele)} />
+                                <Icon onClick={(e)=>this.addOne(e,ele)} type="plus" className="plus_one" />
+                                <Icon onClick={(e)=>this.removeOne(e,ele)} type="minus" className="minus_one" />
+                            </span>
+                        </li>
+                )
+            });
+
+            return(
+                <div className="albumList">
+                    <Header leftAction={()=>this.back()} rightIcon={false} title={"歌单"} />
+                    <div className="album-top" >
+                        <div className="album-bg" style={{background:"url("+this.state.songInfo.img.replace(/\{size\}/g,400)+") no-repeat",backgroundSize:"100% auto"}}>
+
+                        </div>
+                        <div className="album-content">
+                            <img className="album-img" src={this.state.songInfo.img.replace(/\{size\}/g,400)} alt=""/>
+                            <div className="album-text">
+                                <p>名称:{this.state.songInfo.name}</p>
+                                <p>创建人:{this.state.songInfo.creater}</p>
+                                <p>更新时间:{this.state.songInfo.time}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="album-play">
+                        <span>播放全部</span>
+                        <Icon type="plus" onClick={()=>this.addOrRemoveAll(this.state.songList)} />
+                    </div>
+                    <div className="album-list">
+                        <ul>{songList}</ul>
+                    </div>
+                </div>
+            )
+        }
+        else{
+            return(
+                <Loading />
+            )
+        }
+
+    }
+}
+
+export default AlbumList;

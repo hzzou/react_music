@@ -1,0 +1,63 @@
+
+import * as actionTypes from '../constants/index';
+import {unique} from "../util/tool";
+//action动作传给reducer里定义的某一个state属性,
+//然后根据action.type执行相应动作合并出新的state属性
+//总歌单
+const albums = (state = {}, action)=>{
+    switch(action.type){
+        case actionTypes.MUSIC_UPDATE:
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+//歌曲收藏
+const favoriteMusic = (state = [], action)=>{ //如果state么有初始值，则为空数组
+    switch(action.type){
+        case actionTypes.MUSIC_ADD_FAVORITE://执行添加
+            let arr = [...state,action.data]
+                console.log(unique(arr))
+            return unique(arr)
+        case actionTypes.MUSIC_REMOVE_FAVORITE:
+            const index = state.indexOf(action.data) //取位置,一定有(不用判断)
+            state.splice(index,1)
+            return state
+        default:
+            return state
+    }
+}
+
+//播放列表
+const musicList = (state = [],action)=>{
+    switch(action.type){
+        case actionTypes.MUSIC_ADD_ONE:
+            let arr = [...state,action.data];
+            return unique(arr)
+        case actionTypes.MUSIC_ADD_ALL:
+            let arr_1 = [...state,...action.data]; //如果是一次性添加所有的则需把添加的数组先展开
+            console.log(arr_1)
+            return unique(arr_1)
+        case actionTypes.MUSIC_REMOVE_ONE:
+            const index = state.indexOf(action.data) //取位置,一定有(不用判断)
+            state.splice(index,1);
+            return state
+        case actionTypes.MUSIC_REMOVE_ALL:
+            return []
+        default:
+            return state
+    }
+}
+
+//当前播放的音乐(使用音乐hash判定唯一)
+const currentMusic = (state = {},action)=>{
+    switch(action.type){
+        case actionTypes.MUSIC_GET_HASH:
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+export { albums,favoriteMusic,musicList,currentMusic }

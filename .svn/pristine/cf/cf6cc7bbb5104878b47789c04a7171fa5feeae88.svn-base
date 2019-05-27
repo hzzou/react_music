@@ -1,0 +1,25 @@
+
+import * as actionTypes from '../constants/index'
+//Object.assign(target, ...sources)
+//Object.assign([],state,action.data)
+//当target不为空时合并过后,target自身也会改变,和合并后返回的结果一样
+//所以为了不改变原来state,最好把第一个位置设为空
+const hotList = (state=[], action)=>{
+    switch(action.type){
+        case actionTypes.SAVE_SEARCH_HOT:
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+const resultList = (state=[], action)=>{
+    switch(action.type){
+        case actionTypes.SAVE_SEARCH_RESULT:
+            return action.data;
+        default:
+            return state; //不能返回空(否则影响渲染),只能返回上次的
+    }
+}
+
+export {hotList, resultList}

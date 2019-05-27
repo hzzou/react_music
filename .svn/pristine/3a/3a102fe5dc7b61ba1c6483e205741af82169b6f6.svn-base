@@ -1,0 +1,45 @@
+//全局任意位置都播放,独立于Router之外
+import React from 'react';
+import API from '../../util/api';
+import ReactPlayer from 'react-player';
+
+class PlayAudio extends React.Component{
+
+    componentDidMount(){
+        //this.props.musicActions.audioObj({player: this.player});
+    }
+
+    componentWillMount() {
+
+    }
+
+    getCurrentSong() {
+        //console.log(this.props)
+        let musicList = this.props.musicList;
+        let hash = this.props.currentMusic.hash;
+        let currentSong = null;
+        if(musicList.length > 0 && hash !== ""){
+            musicList.map((ele)=>{
+                if(ele.song.hash === hash){
+                    currentSong = ele;
+                }
+                return 0;
+            })
+        }
+        return currentSong;
+    }
+
+    render(){
+        let currentSong = this.getCurrentSong();
+        let volume = this.props.volumeObj.volume;
+
+        return(
+            <div style={{display:"none"}}>
+                <ReactPlayer controls volume={volume}
+                playing={this.props.control.playing} url={currentSong ? currentSong.song.url : null}  />
+            </div>
+        )
+    }
+}
+
+export default PlayAudio;

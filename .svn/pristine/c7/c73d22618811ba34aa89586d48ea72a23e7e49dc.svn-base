@@ -1,0 +1,12 @@
+
+import { combineReducers } from 'redux'
+import {hotList, resultList} from './search'
+import {albums,favoriteMusic,musicList,currentMusic} from './music'
+export default combineReducers({
+    hotList,
+    resultList,
+    albums,
+    favoriteMusic,
+    musicList,
+    currentMusic
+})

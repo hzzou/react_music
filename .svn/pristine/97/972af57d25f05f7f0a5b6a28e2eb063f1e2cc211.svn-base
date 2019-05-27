@@ -1,0 +1,7 @@
+
+const netApi = {
+    banner:"/banner",
+    recommendResource:"/recommend/resource"
+}
+
+export default netApi;

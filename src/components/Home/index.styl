@@ -1,0 +1,154 @@
+
+@import"../../fontSize.styl"
+@-webkit-keyframes waves{
+	20% {
+		height 10px
+	}
+	40%{
+		height 30px
+	}
+	60%{
+		height 40px
+	}
+	80%{
+		height 50px
+	}
+	100%{
+		height 64px
+	}
+	
+}
+
+.home
+	width 100%
+	height 100%
+	overflow auto
+	.homeHeader
+		width 100%
+		height 96px
+		background #e9203d
+		display flex
+		justify-content center
+		.searchBar
+			flex 1 1 558px
+			padding 16px 0
+			line-height 64px
+			.searchInput
+				background #fff
+				border-radius 50px
+				display flex
+				justify-content center
+				i
+					flex 0 1 48px
+					line-height 64px
+					text-align center
+				input
+					flex 1 1 462px
+					border none
+					outline none
+					border-radius 50px
+					font-size(16px)
+		.userName
+			flex 0 1 96px
+			font-size(24px)
+			text-align center
+			line-height 96px
+			a
+				color #fff
+		.music-icon
+			padding 16px 0
+			flex 0 1 96px
+			line-height 64px
+			a
+				flex 1
+				overflow hidden
+			.music-icon-animate
+				text-align center
+				height 64px
+				span
+					display inline-block
+					width 4px
+					height 64px
+					background #fff
+					margin 0 4px
+				.one
+					height 64px
+					animation waves 0.6s linear 0s infinite
+				.two
+					height 30px
+					animation waves 0.9s linear 0s infinite
+				.three
+					height 50px
+					animation waves 1s linear 0s infinite
+				.four
+					height 30px
+					animation waves 0.8s linear 0s infinite
+				.playing
+					animation-play-state running
+				.paused
+					animation-play-state paused
+	.nav
+		width 100%
+		height 96px
+		line-height 96px
+		margin 0
+		list-style none
+		padding 0
+		display flex
+		justify-content center
+		li
+			flex 1 1 25%
+			box-sizing border-box
+			text-align center
+			a
+				text-decoration none
+				color #333
+		.active
+			border-bottom 4px solid #e9203d
+			a
+				color #e9203d
+	.recommend
+		width 100%
+		.ant-carousel
+			width 100%
+			height 375px
+			.carImg
+				height 375px
+				width 100%
+		.recommendTitle
+			width 100%
+			height 96px
+			line-height 96px
+			border-bottom 1Px solid #aeaeae
+			font-size(16px)
+			padding-left 20px
+		.songWrap
+			padding 10px
+			width 100%
+			display grid
+			grid-template-columns repeat(3,1fr)
+			.ant-card
+				position inherit
+			.ant-card-head-title
+				font-size(14px)
+				box-sizing content-box!important
+				white-space normal
+				word-break break-all
+				height 100px
+				text-overflow ellipsis
+			.ant-card-bordered
+				border none
+			.songList
+				padding 10px 10px 0 10px
+				.ant-card-body
+					font-size(14px)
+					color #000
+					padding 0
+					p
+						height 80px
+						overflow hidden
+			img
+				width 100%
+				height 300px
+				
+		

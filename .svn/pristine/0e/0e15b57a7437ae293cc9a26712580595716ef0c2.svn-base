@@ -1,0 +1,28 @@
+
+@import "~stylus-px2rem/index.styl"
+@import "../../fontSize.styl"
+
+.notFound
+	width 100%
+	height 50%
+	position absolute
+	top 0
+	left 0
+	right 0
+	bottom 0
+	margin auto
+	display flex
+	flex-direction column
+	justify-content center
+	align-items center
+	img
+		margin-bottom 10px
+	span
+		font-size(16px)
+		color #f00
+	a
+		margin-top 10px
+		text-decoration none
+		font-size(18px)
+		color #333
+		

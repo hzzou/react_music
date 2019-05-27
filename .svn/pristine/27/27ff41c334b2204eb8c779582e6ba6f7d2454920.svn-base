@@ -1,0 +1,15 @@
+
+import { combineReducers } from 'redux'
+import {hotList, resultList} from './search'
+import {favoriteMusic,musicList,currentMusic,audio,control,progress,volumeObj} from './music'
+export default combineReducers({
+    hotList,
+    resultList,
+    favoriteMusic,
+    musicList,
+    currentMusic,
+    audio,
+    control,
+    progress,
+    volumeObj
+})

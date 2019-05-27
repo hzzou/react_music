@@ -1,0 +1,26 @@
+
+@import "../../fontSize.styl"
+
+.play-control
+  width 100%
+  height 100%
+  overflow auto
+  .no-data
+    width 100%
+    height 1238px
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    img
+      width 375px
+    p
+      font-size(20px)
+      margin-top 20px
+      color #e9203d
+  .play-bg
+    width 100%
+    height 1238px
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    filter blur(15px)

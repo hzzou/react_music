@@ -1,0 +1,14 @@
+//音频播放控制页
+
+import React from 'react'
+
+class PlayControl extends React.Component{
+
+    render(){
+        return{
+
+        }
+    }
+}
+
+export default PlayControl

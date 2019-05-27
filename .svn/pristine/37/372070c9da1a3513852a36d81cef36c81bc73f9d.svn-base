@@ -1,0 +1,31 @@
+
+@import "../../fontSize.styl" //定义不同dpr下的fontSize,需要在每个css文件下引入
+.header
+	background #e9203d
+	height 96px
+	width 100%
+	box-sizing border-box
+	display flex
+	justify-content center
+	.headerBack
+		flex 0 1 96px
+		width 96px
+		height 96px
+		line-height 96px
+		text-align center
+		color #fff
+		font-size(24px)
+	.headerTitle
+		flex 1 1 558px
+		line-height 96px
+		font-size(18px)
+		color #fff
+		text-align center
+	.headerRight
+		flex 0 1 96px
+		line-height 96px
+		text-align center
+		.plus
+			font-size(24px)
+			color #fff
+	

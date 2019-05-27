@@ -1,0 +1,23 @@
+server {
+        listen     7080;
+        server_name  localhost;
+
+        location /build {
+        	  root  /Users/hzlzh/Documents/React/react_music;
+        	  index index.html;
+        }
+        location /kugou/ {
+		
+		        rewrite ^/kugou/(.*)$/$1 break;
+		        proxy_pass http://m.kugou.com/;
+		  	
+        }
+	      location /mobilecdn/ {
+		        rewrite ^/mobilecdn/(.*)$/$1 break;
+		        proxy_pass http://mobilecdn.kugou.com/;
+	      }
+	      location /yy_kugou/ {
+		        rewrite ^/yy_kugou/(.*)$/$1 break;
+		        proxy_pass http://www.kugou.com/yy/;
+	      }
+    }

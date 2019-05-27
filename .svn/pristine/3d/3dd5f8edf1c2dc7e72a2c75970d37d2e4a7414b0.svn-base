@@ -1,0 +1,85 @@
+
+
+const proxy = require("http-proxy-middleware");
+
+module.exports = function(app) {
+    /*app.use(
+        proxy("/kugou", {//代理的是本地的kugou,传递的参数是 ?json=true
+            target: "http://m.kugou.com/?json=true",
+            //跳转的地址是http://m.kugou.com/加上传递的参数
+            changeOrigin: true   //跨域
+        })
+    );
+    app.use(
+        proxy("/plist/index", {//代理的是本地的/plist/index,不能出现kugou/plist这种代理会影响之前的/kugou代理
+            target: "http://m.kugou.com/plist/index&json=true",
+            changeOrigin: true
+        })
+    );
+    app.use(
+        proxy("/albumlist/plist/list/587687", {//第一个,id动态手动改一下
+            target: "http://m.kugou.com/plist/list/587687&json=true",
+            changeOrigin: true
+        })
+    );
+    app.use(
+            proxy("/albumlist/plist/list/547134", {//第二个
+                target: "http://m.kugou.com/plist/list/547134&json=true",
+                changeOrigin: true
+            })
+    );
+    app.use(
+            proxy("/albumlist/plist/list/593735", {//第三个
+                target: "http://m.kugou.com/plist/list/593735&json=true",
+                changeOrigin: true
+            })
+    );
+    app.use(
+            proxy("/api/v3/search", {
+                target: "http://mobilecdn.kugou.com/api/v3/search/hot",
+                changeOrigin: true
+            })
+    );
+    app.use(
+            proxy("/mobilecdn/api/v3/search/song", {
+                target: "http://mobilecdn.kugou.com/api/v3/search/song",
+                changeOrigin: true
+            })
+    );
+    app.use(
+        proxy("/playControl/app/i/!*", {
+            target: "http://m.kugou.com/plist/list/593735&json=true",
+            changeOrigin: true
+        })
+    );*/
+
+    app.use(
+        proxy("/kugou", {
+            target: "http://m.kugou.com/",
+            changeOrigin: true,
+            pathRewrite: { //重写目标路径(动态端口匹配，如果不写，会导致地址改变之后代理失败)
+                "^/kugou" : ""
+            },
+        })
+    );
+
+    app.use(
+        proxy("/mobilecdn", {
+            target: "http://mobilecdn.kugou.com/",
+            changeOrigin: true,
+            pathRewrite: { //重写目标路径(动态端口匹配，如果不写，会导致地址改变之后代理失败)
+                "^/mobilecdn" : ""
+            },
+        })
+    );
+
+    app.use(
+        proxy("/yy_kugou", {
+            target: "http://www.kugou.com/yy/",
+            changeOrigin: true,
+            pathRewrite: { //重写目标路径(动态端口匹配，如果不写，会导致地址改变之后代理失败)
+                "^/yy_kugou" : ""
+            },
+        })
+    );
+};

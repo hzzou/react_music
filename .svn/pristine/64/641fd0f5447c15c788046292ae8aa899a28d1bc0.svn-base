@@ -1,0 +1,94 @@
+//音频播放控制页
+
+import React from 'react'
+import Header from "../../common/Header/Header"
+import Loading from "../../common/Loading/Loading"
+import noData from "../../assets/img/nodata.png"
+import {formatTime} from "../../util/tool"
+import "./playControl.styl"
+
+class PlayControl extends React.Component {
+
+
+    componentWillMount() {
+        console.log(this.props)
+        let hash = this.props.location.hash.replace(/#/,"");
+
+        if(hash !== void 0 && hash !== null && hash !== this.props.currentMusic.hash){
+            this.props.musicActions.getMusicHash({hash:hash});
+            this.props.musicActions.fetchMusic(hash);
+            this.props.musicActions.control({playing:true});
+        }
+    }
+
+    getCurrentSong() {
+        let musicList = this.props.musicList;
+        let hash = this.props.currentMusic.hash;
+        let currentSong = null;
+        if(musicList.length > 0 && hash !== ""){
+            musicList.map((ele)=>{
+                if(ele.song.hash === hash){
+                    currentSong = ele;
+                }
+                return 0;
+            })
+        }
+        return currentSong;
+    }
+
+    back(){
+        this.props.history.goBack()
+    }
+
+    render() {
+        //console.log(this.props)
+        if(this.getCurrentSong() !== null){
+            let currentSong = this.getCurrentSong().song;
+            let currentLyrics = this.getCurrentSong().lyrics;
+            let albumImg = currentSong.album_img.replace(/\{size\}/g,400);
+            let cuttentTime = formatTime(this.props.progress.currentTime);
+
+            if(currentSong.error){
+                return (
+                    <div className="play-control">
+                        <Header leftAction={()=>this.back()} rightIcon={false} />
+                        <div className="no-data">
+                            <img src={noData} alt="无音乐"/>
+                            <p>{"获取音乐失败"}</p>
+                        </div>
+                    </div>
+                )
+            }
+            else{
+                return (
+                    <div className="play-control">
+                        <Header leftAction={()=>this.back()} rightIcon={false} title={currentSong.songName} />
+                        <div className="play-bg"  style={{backgroundImage:`url(${albumImg})`}}></div>
+                    </div>
+                )
+            }
+
+        }
+        else if(this.props.currentMusic.hash === null || this.props.currentMusic.hash === void 0){
+            return (
+                <div className="play-control">
+                    <Header leftAction={()=>this.back()} rightIcon={false} />
+                    <div className="no-data">
+                        <img src={noData} alt="无音乐"/>
+                        <p>{"无音乐"}</p>
+                    </div>
+                </div>
+            )
+        }
+        else{
+            return(
+                <div className="play-control">
+                    <Loading/>
+                </div>
+            )
+        }
+
+
+    }
+}
+export default PlayControl

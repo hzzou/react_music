@@ -1,0 +1,21 @@
+
+@import "~stylus-px2rem/index.styl"//把px转化为rem,可以在全局引入
+html, body
+	width 100%
+	height 100%
+	overflow auto
+	margin 0
+	padding 0
+	color #666
+	font-family -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+	"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+	sans-serif
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+
+code
+	font-family source-code-pro, Menlo, Monaco, Consolas, "Courier New",monospace
+#root,.App
+	width 100%
+	height 100%
+	overflow auto
